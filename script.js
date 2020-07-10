@@ -83,11 +83,7 @@ class Todo {
     })
   }
 
-  // slider.addEventListener('mouseover', (event) => { //mouseenter не подойдёт
-  //   if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
-  //     stopSlides();
-  //   }
-  // });
+  
 
 
 	init() {
