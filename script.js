@@ -44,8 +44,12 @@ class Todo {
 
   addTodo(e) {
     e.preventDefault();
-
+    if (this.input.value.trim() === '') {
+      alert('Необходимо назвать задачу ');
+      return
+    }
     if (this.input.value.trim()) {
+      
       const newTodo = {
         value: this.input.value,
         completed: false,
@@ -63,29 +67,25 @@ class Todo {
   }
 
   completedItem(currentKey) {
-    //завершает. через ворич перебрать все элементы this.todoData, найтти элемент которому соответствует ключ
-    //и поменять значение completed: false, => true  и наоборот
-    this.todoData.forEach(elem => {
-      if (this.todoItem.key = currentKey) {
-        this.todoItem.completed = true
-      }
-    });
-    console.log('комплитю', currentKey);
-
-
-
+    switch(this.todoData.get(currentKey).completed) {
+      case true: 
+      this.todoData.get(currentKey).completed = false;
+      break
+      case false: 
+      this.todoData.get(currentKey).completed = true;
+      break
+    }
+      this.render();
   }
 
   deleteItem(currentKey) {
     //удаяляет.найти по ключу, удалить из newMap, сделать рендер
-    console.log('удаляю', currentKey);
+    this.todoData.delete(currentKey);
+    this.render();
   }
 
   handler() {
     this.todoItem = document.querySelectorAll('.todo-item');
-    // console.log('this.todoItem: ', this.todoItem[2].key);
-
-    //метод будет определять на какую из кнопок тыкнули, делегирование
     this.todoСontainer.addEventListener('click', (event) => {
       let foo = event.target.closest('.todo-item');
       this.currentKey = foo.key;
@@ -100,23 +100,14 @@ class Todo {
 
   }
 
-  // slider.addEventListener('mouseout', (event) => { //mouseleave не подойдёт
-  //   if (event.target.matches('.portfolio-btn') ||
-  //     event.target.matches('.dot')) {
-  //     startSlides();
-  //   }
-  // });
-
-
   init() {
+    // console.log(this.todoData);
     this.form.addEventListener('submit', this.addTodo.bind(this));
     this.render()
-    this.todoData.forEach((value, key) => {
-      // console.log(value);
-    })
+    // this.todoData.forEach((value, key) => {
+    //   // console.log(value);
+    // })
     this.handler();
-    // console.log(this.todoList);
-    // console.log(this.todoItem);
 
   }
 }
